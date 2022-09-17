@@ -5,6 +5,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background-image: url("./assets/img/ground-tile.png");
+    background-repeat: repeat-x repeat-y;
+    background-size: 100px 100px;
+    background-position: 0 0;
+}
 
 .game-board {
     width: 100%;
@@ -47,14 +53,15 @@
 
 .restart{
     display: none;
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: greenyellow;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     font-weight: bold;
 
     background: green;
 
     border: 2px solid black;
+    padding: 10px;
 
     width: fit-content;
     height: fit-content;
@@ -64,4 +71,34 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
+}
+
+.description{
+    font-size: 2rem;
+    color: black;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
+    width: 100%;
+    padding: 10px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.description h1{
+    font-size: 3rem;
+    color: gold;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.description p{
+    color: #0839AA;
+    margin: 0 auto;
+    padding: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.description p span{
+    color: gold !important;
 }
