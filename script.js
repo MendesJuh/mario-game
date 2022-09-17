@@ -112,9 +112,18 @@ const animateClouds = () => {
     }
 }
 
+// pipe animation
+const animatePipe = () => {
+    pipe.x -= speed;
+    pipeElement.style.left = pipe.x + "px";
+    if (pipe.x + parseInt(pipe.width) < 0) {
+        pipe.x = gameBoard.width;
+    }
+}
 
 var gameLoop = setInterval(() => {
     animateClouds();
+    animatePipe();
 
 }, 1000 / 60);
 
