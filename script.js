@@ -4,6 +4,7 @@ const ImageAssets = {
     deadMario: "./assets/img/game-over.png",
     pipe: "./assets/img/pipe.png",
     coin: "./assets/img/coin.gif",
+    groundTile: "./assets/img/ground-tile.png"
 }
 
 const SoundAssets = {
@@ -24,7 +25,7 @@ var marioElement = `<img id="mario" src="${ImageAssets.mario}" />`;
 var pipeElement = `<img id="pipe" src="${ImageAssets.pipe}" />`;
 var coinElement = `<img id="coin" src="${ImageAssets.coin}" />`;
 var cloudsElement = `<img id="clouds" src="${ImageAssets.clouds}" />`;
-
+var groundDivElement = document.querySelector('.ground');
 var scoreElement = document.querySelector('.score');
 
 // Mario Data
@@ -60,47 +61,11 @@ var clouds = {
     y: 256 - 128,
 }
 
-// Initialize the game
-var init = () => {
-    gameBoardDiv.innerHTML += marioElement;
-    gameBoardDiv.innerHTML += pipeElement;
-    gameBoardDiv.innerHTML += coinElement;
-    gameBoardDiv.innerHTML += cloudsElement;
-
-    marioElement = document.querySelector('#mario');
-    pipeElement = document.querySelector('#pipe');
-    coinElement = document.querySelector('#coin');
-    cloudsElement = document.querySelector('#clouds');
-
-    marioElement.style.width = mario.width + "px";
-    marioElement.style.height = mario.height + "px";
-    marioElement.style.position = "absolute";
-    marioElement.style.left = mario.x + "px";
-    marioElement.style.top = mario.y + "px";
-    marioElement.style.zIndex = "1";
-
-    pipeElement.style.width = pipe.width + "px";
-    pipeElement.style.height = pipe.height + "px";
-    pipeElement.style.position = "absolute";
-    pipeElement.style.left = pipe.x + "px";
-    pipeElement.style.top = pipe.y + "px";
-    pipeElement.style.zIndex = "1";
-
-    coinElement.style.width = coin.width + "px";
-    coinElement.style.height = coin.height + "px";
-    coinElement.style.position = "absolute";
-    coinElement.style.left = coin.x + "px";
-    coinElement.style.top = coin.y + "px";
-    coinElement.style.zIndex = "1";
-
-    cloudsElement.style.width = clouds.width + "px";
-    cloudsElement.style.height = clouds.height + "px";
-    cloudsElement.style.position = "absolute";
-    cloudsElement.style.left = clouds.x + "px";
-    cloudsElement.style.top = clouds.y + "px";
-    cloudsElement.style.zIndex = "0";
-
-    scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
+// Ground Data
+var ground = {
+    width: gameBoard.width,
+    height: 100,
+    xOffset: 0,
 }
 
 // mario jump
@@ -202,6 +167,7 @@ const pipeCollision = (marioElement, pipeElement) => {
     return false;
 }
 
+// Principal Game Loop
 var gameLoop = setInterval(() => {
     animateClouds();
     animatePipe();
@@ -231,21 +197,86 @@ var gameLoop = setInterval(() => {
     }
 
 
+    //move ground
+    ground.xOffset -= speed;
+    groundDivElement.style.backgroundPositionX = ground.xOffset + "px";
+
 }, 1000 / 60);
 
 const restart = () => {
     location.reload();
 }
 
+// Initialize the game
+var init = () => {
+    gameBoardDiv.innerHTML += marioElement;
+    gameBoardDiv.innerHTML += pipeElement;
+    gameBoardDiv.innerHTML += coinElement;
+    gameBoardDiv.innerHTML += cloudsElement;
+
+    marioElement = document.querySelector('#mario');
+    pipeElement = document.querySelector('#pipe');
+    coinElement = document.querySelector('#coin');
+    cloudsElement = document.querySelector('#clouds');
+
+    marioElement.style.width = mario.width + "px";
+    marioElement.style.height = mario.height + "px";
+    marioElement.style.position = "absolute";
+    marioElement.style.left = mario.x + "px";
+    marioElement.style.top = mario.y + "px";
+    marioElement.style.zIndex = "1";
+
+    pipeElement.style.width = pipe.width + "px";
+    pipeElement.style.height = pipe.height + "px";
+    pipeElement.style.position = "absolute";
+    pipeElement.style.left = pipe.x + "px";
+    pipeElement.style.top = pipe.y + "px";
+    pipeElement.style.zIndex = "1";
+
+    coinElement.style.width = coin.width + "px";
+    coinElement.style.height = coin.height + "px";
+    coinElement.style.position = "absolute";
+    coinElement.style.left = coin.x + "px";
+    coinElement.style.top = coin.y + "px";
+    coinElement.style.zIndex = "1";
+
+    cloudsElement.style.width = clouds.width + "px";
+    cloudsElement.style.height = clouds.height + "px";
+    cloudsElement.style.position = "absolute";
+    cloudsElement.style.left = clouds.x + "px";
+    cloudsElement.style.top = clouds.y + "px";
+    cloudsElement.style.zIndex = "0";
+
+    scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
+
+    // Ground
+    groundDivElement.style.width = ground.width + "px";
+    groundDivElement.style.height = ground.height + "px";
+    groundDivElement.style.position = "relative";
+    groundDivElement.style.backgroundImage = "url(" + ImageAssets.groundTile + ")";
+    groundDivElement.style.backgroundSize = "100px 100px";
+    groundDivElement.style.backgroundRepeat = "repeat-x";
+    groundDivElement.style.zIndex = "0";
+    groundDivElement.style.backgroundPositionX = ground.xOffset + "px";
+
+
+    // add event listener for jump
+    // key press event
+    document.addEventListener('keydown', (e) => {
+        jump();
+    });
+
+    // touch event for mobile
+    document.addEventListener('touchstart', (e) => {
+        jump();
+    });
+
+    // restart button
+    document.querySelector('.restart').addEventListener('click', () => {
+        restart();
+    });
+
+
+}
+
 init();
-
-// key press event
-document.addEventListener('keydown', (e) => {
-    jump();
-});
-
-
-// restart button
-document.querySelector('.restart').addEventListener('click', () => {
-    restart();
-});
