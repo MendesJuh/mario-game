@@ -121,10 +121,20 @@ const animatePipe = () => {
     }
 }
 
+// coin animation
+const animateCoin = () => {
+    coin.x -= speed;
+    coinElement.style.left = coin.x + "px";
+    if (coin.x + parseInt(coin.width) < 0) {
+        coin.x = gameBoard.width;
+        coinElement.style.display = "block";
+    }
+}
+
 var gameLoop = setInterval(() => {
     animateClouds();
     animatePipe();
-
+    animateCoin();
 }, 1000 / 60);
 
 const restart = () => {
