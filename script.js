@@ -176,12 +176,12 @@ var gameLoop = setInterval(() => {
     // Coin collision 
     if (coinCollision(marioElement, coinElement)) {
         coinElement.style.display = "none";
-        score += 10;
+        score += 10 * (speed + 1) ;
         scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
         // play coin sound
         const coinSound = new Audio(SoundAssets.coin);
         coinSound.play();
-
+        speed += 0.5;
     }
 
     // Pipe collision
