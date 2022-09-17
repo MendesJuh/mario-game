@@ -92,6 +92,32 @@ var init = () => {
     scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
 }
 
+// mario jump
+const jump = () => {
+    if (mario.isJumping) {
+        return;
+    } else {
+        mario.isJumping = true;
+        const jumpHeight = mario.height * 5;
+        const jumpDuration = 1000;
+
+        let jumpStart = Date.now();
+        let jumpEnd = jumpStart + jumpDuration;
+        let jumpInterval = setInterval(() => {
+            let now = Date.now();
+            let t = Math.min(1, (now - jumpStart) / jumpDuration);
+            let y = jumpHeight * (1 - t) * t;
+            mario.y = gameBoard.height - mario.height - y;
+            marioElement.style.top = mario.y + "px";
+            if (now > jumpEnd) {
+                clearInterval(jumpInterval);
+                mario.isJumping = false;
+            }
+        }
+            , 20);
+    }
+}
+
 // cloud animation
 const animateClouds = () => {
     clouds.x -= speed * 0.5;
