@@ -170,6 +170,21 @@ const coinCollision = (marioElement, coinElement) => {
     return false;
 }
 
+
+const pipeCollision = (marioElement, pipeElement) => {
+    const marioRect = marioElement.getBoundingClientRect();
+    const pipeRect = pipeElement.getBoundingClientRect();
+
+    // colide with only the left side of the pipe
+    if (marioRect.top < pipeRect.top + pipeRect.height &&
+        marioRect.top + marioRect.height > pipeRect.top &&
+        marioRect.left < pipeRect.left + pipeRect.width / 2 && // only left side
+        marioRect.left + marioRect.width > pipeRect.left) {
+        return true;
+    }
+    return false;
+}
+
 var gameLoop = setInterval(() => {
     animateClouds();
     animatePipe();
@@ -180,6 +195,15 @@ var gameLoop = setInterval(() => {
         coinElement.style.display = "none";
         score += 10;
         scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
+    }
+
+    // Pipe collision
+    if (pipeCollision(marioElement, pipeElement)) {
+        clearInterval(gameLoop);
+        marioElement.src = assets.deadMario;
+        marioElement.style.width = "auto";
+        document.querySelector('.game-over').innerHTML = "Game Over";
+        document.querySelector('.restart').style.display = "block";
     }
 
 
