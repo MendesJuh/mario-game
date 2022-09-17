@@ -6,6 +6,12 @@ const ImageAssets = {
     coin: "./assets/img/coin.gif",
 }
 
+const SoundAssets = {
+    jump: "./assets/sounds/jump.wav",
+    coin: "./assets/sounds/coin.wav",
+    dead: "./assets/sounds/dead.wav",
+}
+
 let score = 0;
 let speed = 10;
 const gameBoardDiv = document.querySelector('.game-board');
@@ -108,6 +114,11 @@ const jump = () => {
 
         let jumpStart = Date.now();
         let jumpEnd = jumpStart + jumpDuration;
+
+        // play jump sound
+        const jumpSound = new Audio(SoundAssets.jump);
+        jumpSound.play();
+
         let jumpInterval = setInterval(() => {
             let now = Date.now();
             let t = Math.min(1, (now - jumpStart) / jumpDuration);
@@ -162,6 +173,7 @@ const animateCoin = () => {
     }
 }
 
+// check coin collision
 const coinCollision = (marioElement, coinElement) => {
     const marioRect = marioElement.getBoundingClientRect();
     const coinRect = coinElement.getBoundingClientRect();
@@ -175,7 +187,7 @@ const coinCollision = (marioElement, coinElement) => {
     return false;
 }
 
-
+// check pipe collision
 const pipeCollision = (marioElement, pipeElement) => {
     const marioRect = marioElement.getBoundingClientRect();
     const pipeRect = pipeElement.getBoundingClientRect();
@@ -200,6 +212,10 @@ var gameLoop = setInterval(() => {
         coinElement.style.display = "none";
         score += 10;
         scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
+        // play coin sound
+        const coinSound = new Audio(SoundAssets.coin);
+        coinSound.play();
+
     }
 
     // Pipe collision
@@ -209,6 +225,9 @@ var gameLoop = setInterval(() => {
         marioElement.style.width = "auto";
         document.querySelector('.game-over').innerHTML = "Game Over";
         document.querySelector('.restart').style.display = "block";
+        // play dead sound
+        const deadSound = new Audio(SoundAssets.dead);
+        deadSound.play();
     }
 
 
