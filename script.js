@@ -1,9 +1,9 @@
-const assets = {
-    clouds: "./assets/clouds.png",
-    mario: "./assets/mario.gif",
-    deadMario: "./assets/game-over.png",
-    pipe: "./assets/pipe.png",
-    coin: "./assets/coin.gif",
+const ImageAssets = {
+    clouds: "./assets/img/clouds.png",
+    mario: "./assets/img/mario.gif",
+    deadMario: "./assets/img/game-over.png",
+    pipe: "./assets/img/pipe.png",
+    coin: "./assets/img/coin.gif",
 }
 
 let score = 0;
@@ -14,13 +14,14 @@ const gameBoard = {
     height: gameBoardDiv.offsetHeight
 }
 
-var marioElement = `<img id="mario" src="${assets.mario}" />`;
-var pipeElement = `<img id="pipe" src="${assets.pipe}" />`;
-var coinElement = `<img id="coin" src="${assets.coin}" />`;
-var cloudsElement = `<img id="clouds" src="${assets.clouds}" />`;
+var marioElement = `<img id="mario" src="${ImageAssets.mario}" />`;
+var pipeElement = `<img id="pipe" src="${ImageAssets.pipe}" />`;
+var coinElement = `<img id="coin" src="${ImageAssets.coin}" />`;
+var cloudsElement = `<img id="clouds" src="${ImageAssets.clouds}" />`;
 
 var scoreElement = document.querySelector('.score');
 
+// Mario Data
 var mario = {
     width: 150,
     height: 150,
@@ -29,6 +30,7 @@ var mario = {
     isJumping: false,
 }
 
+// Pipe Data
 var pipe = {
     width: 80,
     height: 100,
@@ -36,6 +38,7 @@ var pipe = {
     y: gameBoard.height - 100,
 }
 
+// Coin Data
 var coin = {
     width: 60,
     height: 60,
@@ -43,6 +46,7 @@ var coin = {
     y: gameBoard.height - 60,
 }
 
+// Clouds Data
 var clouds = {
     width: 1084,
     height: 492,
@@ -50,6 +54,7 @@ var clouds = {
     y: 256 - 128,
 }
 
+// Initialize the game
 var init = () => {
     gameBoardDiv.innerHTML += marioElement;
     gameBoardDiv.innerHTML += pipeElement;
@@ -178,7 +183,7 @@ const pipeCollision = (marioElement, pipeElement) => {
     // colide with only the left side of the pipe
     if (marioRect.top < pipeRect.top + pipeRect.height &&
         marioRect.top + marioRect.height > pipeRect.top &&
-        marioRect.left < pipeRect.left + pipeRect.width / 2 && // only left side
+        marioRect.left < pipeRect.left + pipeRect.width / 2 && // only left side 
         marioRect.left + marioRect.width > pipeRect.left) {
         return true;
     }
@@ -200,7 +205,7 @@ var gameLoop = setInterval(() => {
     // Pipe collision
     if (pipeCollision(marioElement, pipeElement)) {
         clearInterval(gameLoop);
-        marioElement.src = assets.deadMario;
+        marioElement.src = ImageAssets.deadMario;
         marioElement.style.width = "auto";
         document.querySelector('.game-over').innerHTML = "Game Over";
         document.querySelector('.restart').style.display = "block";
