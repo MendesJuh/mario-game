@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -16,13 +18,13 @@
 .score{
     position: absolute;
     font-size: 2rem;
-    color: red;
+    color: gold;
     top: 0;
     left: 0;
     width: fit-content;
     height: fit-content;
     padding: 10px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     font-weight: bold;
     z-index: 2;
 }
@@ -30,7 +32,7 @@
 .game-over{
     font-size: 5rem;
     color: red;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     font-weight: bold;
 
     width: fit-content;
