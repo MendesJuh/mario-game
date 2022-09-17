@@ -110,7 +110,6 @@ const animateClouds = () => {
 
         // new random x
         clouds.y = Math.floor(Math.random() * gameBoard.height);
-        console.log(clouds.y);
 
         // update the element
         cloudsElement.style.width = clouds.width + "px";
@@ -133,8 +132,18 @@ const animateCoin = () => {
     coin.x -= speed;
     coinElement.style.left = coin.x + "px";
     if (coin.x + parseInt(coin.width) < 0) {
+        if(Math.random() > 0.5) {
+            console.log("low coin");
+            coin.y = gameBoard.height - 60;
+        } else {
+            console.log("high coin");
+            coin.y = gameBoard.height - 60 - 10 - pipe.height;
+        }
+        coinElement.style.top = coin.y + "px";
+
         coin.x = gameBoard.width;
         coinElement.style.display = "block";
+
     }
 }
 
@@ -176,12 +185,19 @@ var gameLoop = setInterval(() => {
     // Coin collision 
     if (coinCollision(marioElement, coinElement)) {
         coinElement.style.display = "none";
-        score += 10 * (speed + 1) ;
+        score += 10 * (speed + 1) / 5;
         scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
         // play coin sound
         const coinSound = new Audio(SoundAssets.coin);
         coinSound.play();
-        speed += 0.5;
+        speed += 0.05;
+    }
+
+    // Coin Pipe collision
+    if (coinCollision(coinElement, pipeElement)) {
+        coinElement.style.display = "none";
+        coin.x = gameBoard.width;
+        coinElement.style.left = coin.x + "px";
     }
 
     // Pipe collision
@@ -194,7 +210,14 @@ var gameLoop = setInterval(() => {
         // play dead sound
         const deadSound = new Audio(SoundAssets.dead);
         deadSound.play();
+        // remove event listener
+        document.removeEventListener("keydown", jump);
+        document.removeEventListener("touchstart", jump);
     }
+
+    
+        
+
 
 
     //move ground
