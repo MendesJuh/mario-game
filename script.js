@@ -131,10 +131,32 @@ const animateCoin = () => {
     }
 }
 
+const coinCollision = (marioElement, coinElement) => {
+    const marioRect = marioElement.getBoundingClientRect();
+    const coinRect = coinElement.getBoundingClientRect();
+
+    if (marioRect.top < coinRect.top + coinRect.height &&
+        marioRect.top + marioRect.height > coinRect.top &&
+        marioRect.left < coinRect.left + coinRect.width &&
+        marioRect.left + marioRect.width > coinRect.left) {
+        return true;
+    }
+    return false;
+}
+
 var gameLoop = setInterval(() => {
     animateClouds();
     animatePipe();
     animateCoin();
+
+    // Coin collision 
+    if (coinCollision(marioElement, coinElement)) {
+        coinElement.style.display = "none";
+        score += 10;
+        scoreElement.innerHTML = `Score: ${score.toFixed(0)}`;
+    }
+
+
 }, 1000 / 60);
 
 const restart = () => {
