@@ -1,79 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+body{
+    background-image: url("./assets/img/ground-tile.png");
+    background-repeat: repeat-x repeat-y;
+    background-size: 100px 100px;
+    background-position: 0 0;
+}
 
 .game-board {
     width: 100%;
     height: 500px;
-    border-bottom: 20px solid green;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
     background: linear-gradient(#87CEEB, #E0F6FF);
 }
 
-.pipe {
+.score{
     position: absolute;
-    bottom: 0;
-    width: 80px;
-    animation: pipe-animation 1.5s infinite linear;
+    font-size: 2rem;
+    color: gold;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
+    z-index: 2;
 }
 
-.mario {
-    width: 150px;
+.game-over{
+    font-size: 5rem;
+    color: red;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
+
+    width: fit-content;
+    height: fit-content;
+
     position: absolute;
-    bottom: 0;
-   
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
-.jump {
-    animation: jump 500ms ease-out; 
-}
+.restart{
+    display: none;
+    font-size: 2.5rem;
+    color: greenyellow;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
 
-.clouds {
+    background: green;
+
+    border: 2px solid black;
+    padding: 10px;
+
+    width: fit-content;
+    height: fit-content;
+
     position: absolute;
-    width: 550px;
-    animation: clouds-animation 20s infinite linear;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
-@keyframes pipe-animation {
-    from {
-        right: -80px;
-    }
-    to {
-        right: 100%;
-    }
+.description{
+    font-size: 2rem;
+    color: black;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
+    width: 100%;
+    padding: 10px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-@keyframes jump {
-    0% { 
-        bottom: 0;
-    }
-
-    40% {
-        bottom: 180px;
-    }
-
-    50% {
-        bottom: 180px;
-    }
-    60% {
-            bottom: 180px;
-    }
-
-    100% {
-        bottom: 0;
-    }
-
+.description h1{
+    font-size: 3rem;
+    color: gold;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
 }
 
-@keyframes clouds-animation {
-    from {
-        right: -550px;
-    }
-    to {
-        right: 100%;
-    }
+.description p{
+    color: #0839AA;
+    margin: 0 auto;
+    padding: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.description p span{
+    color: gold !important;
 }
